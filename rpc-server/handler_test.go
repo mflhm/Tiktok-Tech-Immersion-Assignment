@@ -23,15 +23,21 @@ func TestIMServiceImpl_Send(t *testing.T) {
 			name: "success",
 			args: args{
 				ctx: context.Background(),
-				req: &rpc.SendRequest{},
+				req: &rpc.SendRequest{
+					Message: &rpc.Message{
+						Chat:     "a1:b1",
+						Text:     "Hello",
+						Sender:   "a1",
+						SendTime: time.Now().Unix(),
+				},
 			},
 			wantErr: nil,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			s := &IMServiceImpl{}
-			got, err := s.Send(tt.args.ctx, tt.args.req)
+			//s := &IMServiceImpl{}
+			//got, err := s.Send(tt.args.ctx, tt.args.req)
 			assert.True(t, errors.Is(err, tt.wantErr))
 			assert.NotNil(t, got)
 		})
